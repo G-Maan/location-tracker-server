@@ -1,6 +1,6 @@
 package com.mielniczuk.repository;
 
-import com.mielniczuk.model.Customer;
+import com.mielniczuk.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.List;
 /**
  * Created by Pawel on 2016-10-05.
  */
-public interface UserRepository extends CrudRepository<Customer, Long>{
+public interface UserRepository extends CrudRepository<User, Long>{
 
-    Customer findByName(String name);
+    User findByName(String name);
 
 }
