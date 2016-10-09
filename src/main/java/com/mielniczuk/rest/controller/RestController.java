@@ -31,6 +31,24 @@ public class RestController {
         userRepository.save(newCustomer);
     }
 
+    @RequestMapping(value = "/add/{id}/{id_friend}", method = RequestMethod.GET)
+    public void saveNewFriend(@PathVariable("id") final Long id, @PathVariable("id_friend") final Long idFriend){
+        User user = userRepository.findOne(id);
+        User userToBefriend = userRepository.findOne(idFriend);
+        user.getFriends().add(userToBefriend);
+        userToBefriend.getFriends().add(user);
+        userRepository.save(user);
+        userRepository.save(userToBefriend);
+    }
+
+    @RequestMapping(value = "/print/friends/{id}", method = RequestMethod.GET)
+    public void printFriends(@PathVariable("id") final Long id){
+        User user = userRepository.findOne(id);
+        user.getFriends().stream().forEach(user1 -> {
+            System.out.println("Id: " + user1.getId() + " name: " + user1.getName());
+        });
+    }
+
     @RequestMapping(value = "/save/random/{id}", method = RequestMethod.GET)
     public void updateCustomerLocation(@PathVariable("id") final Long id){
         Random rand = new Random();

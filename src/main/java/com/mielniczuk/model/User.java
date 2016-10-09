@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by Pawel on 2016-10-05.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "customer")
 public class User {
 
     @Id
@@ -80,5 +80,21 @@ public class User {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
+    public Set<User> getFriendOf() {
+        return friendOf;
+    }
+
+    public void setFriendOf(Set<User> friendOf) {
+        this.friendOf = friendOf;
     }
 }
