@@ -20,9 +20,11 @@ public class RestController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/print/{name}", method = RequestMethod.GET)
-    public void printCustomer(@PathVariable("name") final String name){
+    public String printCustomer(@PathVariable("name") final String name){
         User customer = userRepository.findByName(name);
-        System.out.println(customer.getId() + " " + customer.getName() + " " + customer.getEmail());
+        String user = customer.getId() + " " + customer.getName() + " " + customer.getEmail();
+        System.out.println(user);
+        return user;
     }
 
     @RequestMapping(value = "/save/{name}/{email}", method = RequestMethod.GET)
