@@ -1,1 +1,0 @@
-{"virtualbox":{"/deployment":{"guestpath":"/deployment","hostpath":"C:/Users/PawelMielniczuk/Desktop/Programming/location-tracker-server/target","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/PawelMielniczuk/Desktop/Programming/location-tracker-server","disabled":false,"__vagrantfile":true}}}
