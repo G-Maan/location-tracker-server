@@ -28,9 +28,15 @@ public class RestController {
     }
 
     @RequestMapping(value = "/save/{name}/{email}", method = RequestMethod.GET)
-    public void saveNewCustomer(@PathVariable("name") final String name, @PathVariable("email") final String email){
+    public String saveNewCustomer(@PathVariable("name") final String name, @PathVariable("email") final String email){
         User newCustomer = new User(name, email);
+        User savedUser = userRepository.findByName(name);
+        if(savedUser == null){
         userRepository.save(newCustomer);
+            return "Saved: " + name + " " + email;
+        }else{
+            return "Not saved, already registered.";
+        }
     }
 
     @RequestMapping(value = "/add/{id}/{id_friend}", method = RequestMethod.GET)
