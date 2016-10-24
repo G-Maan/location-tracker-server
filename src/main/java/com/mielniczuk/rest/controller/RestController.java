@@ -1,12 +1,17 @@
 package com.mielniczuk.rest.controller;
 
+import com.mielniczuk.model.Location;
 import com.mielniczuk.model.User;
 import com.mielniczuk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.xml.ws.http.HTTPException;
 import java.util.Random;
 
 
@@ -66,5 +71,18 @@ public class RestController {
         customer.setLatitude(latitude);
         customer.setLongitude(longitude);
         userRepository.save(customer);
+    }
+
+    @RequestMapping(value = "/save/location", method = RequestMethod.POST)
+    public ResponseEntity<Location> updateLocation(@RequestBody Location location){
+        try {
+            User user = userRepository.findOne(Integer.toUnsignedLong(1));
+            user.setLatitude(location.getLatitude());
+            user.setLongitude(location.getLongitude());
+            userRepository.save(user);
+        return new ResponseEntity(HttpStatus.OK);
+        }catch (HTTPException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }
