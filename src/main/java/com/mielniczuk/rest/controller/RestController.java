@@ -76,10 +76,10 @@ public class RestController {
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
-            System.out.println("Location: " + location.getEmail() + " " + location.getLatitude() + " " + location.getLongitude());
-            User user1 = userRepository.findByEmail(location.getEmail());
-            System.out.println("User: " + user1.getEmail() + " " + user1.getName());
-            User user = userRepository.findOne(user1.getId());
+//            System.out.println("Location: " + location.getEmail() + " " + location.getLatitude() + " " + location.getLongitude());
+//            User user1 = userRepository.findByEmail(location.getEmail());
+//            System.out.println("User: " + user1.getEmail() + " " + user1.getName());
+            User user = userRepository.findByEmail(location.getEmail());
             user.setLatitude(location.getLatitude());
             user.setLongitude(location.getLongitude());
             userRepository.save(user);
