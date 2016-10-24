@@ -44,8 +44,8 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/add/{id}/{id_friend}", method = RequestMethod.GET)
-    public void saveNewFriend(@PathVariable("id") final Long id, @PathVariable("id_friend") final Long idFriend){
+    @RequestMapping(value = "/add/{email}/{email_friend}", method = RequestMethod.GET)
+    public void saveNewFriend(@PathVariable("email") final String id, @PathVariable("email_friend") final String idFriend){
         User user = userRepository.findOne(id);
         User userToBefriend = userRepository.findOne(idFriend);
         user.getFriends().add(userToBefriend);
@@ -54,16 +54,16 @@ public class RestController {
         userRepository.save(userToBefriend);
     }
 
-    @RequestMapping(value = "/print/friends/{id}", method = RequestMethod.GET)
-    public void printFriends(@PathVariable("id") final Long id){
+    @RequestMapping(value = "/print/friends/{email}", method = RequestMethod.GET)
+    public void printFriends(@PathVariable("email") final String id){
         User user = userRepository.findOne(id);
         user.getFriends().stream().forEach(user1 -> {
             System.out.println("Id: " + user1.getEmail() + " name: " + user1.getName());
         });
     }
 
-    @RequestMapping(value = "/save/random/{id}", method = RequestMethod.GET)
-    public void updateCustomerLocation(@PathVariable("id") final Long id){
+    @RequestMapping(value = "/save/random/{email}", method = RequestMethod.GET)
+    public void updateCustomerLocation(@PathVariable("email") final String id){
         Random rand = new Random();
         double latitude = rand.nextDouble();
         double longitude = rand.nextDouble();
@@ -76,7 +76,7 @@ public class RestController {
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
-            User user = userRepository.findByEmail(location.getEmail());
+            User user = userRepository.findOne(location.getEmail());
             user.setLatitude(location.getLatitude());
             user.setLongitude(location.getLongitude());
             userRepository.save(user);

@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * Created by Pawel on 2016-10-05.
  */
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface UserRepository extends CrudRepository<User, String>{
 
     User findByName(String name);
-    User findByEmail(String email);
 }
