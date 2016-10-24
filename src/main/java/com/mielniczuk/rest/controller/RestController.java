@@ -78,11 +78,11 @@ public class RestController {
         try {
             System.out.println("Location: " + location.getEmail() + " " + location.getLatitude() + " " + location.getLongitude());
             User user1 = userRepository.findByEmail(location.getEmail());
-//            System.out.println("User: " + user1.getEmail() + " " + user1.getName());
-//            User user = userRepository.findOne(user1.getId());
-//            user.setLatitude(location.getLatitude());
-//            user.setLongitude(location.getLongitude());
-//            userRepository.save(user);
+            System.out.println("User: " + user1.getEmail() + " " + user1.getName());
+            User user = userRepository.findOne(user1.getId());
+            user.setLatitude(location.getLatitude());
+            user.setLongitude(location.getLongitude());
+            userRepository.save(user);
         return new ResponseEntity(HttpStatus.OK);
         }catch (HTTPException e){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
