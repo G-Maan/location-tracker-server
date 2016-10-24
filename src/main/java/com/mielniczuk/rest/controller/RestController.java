@@ -27,7 +27,7 @@ public class RestController {
     @RequestMapping(value = "/print/{name}", method = RequestMethod.GET)
     public String printCustomer(@PathVariable("name") final String name){
         User customer = userRepository.findByName(name);
-        String user = customer.getId() + " " + customer.getName() + " " + customer.getEmail();
+        String user = customer.getEmail() + " " + customer.getName();
         System.out.println(user);
         return user;
     }
@@ -58,7 +58,7 @@ public class RestController {
     public void printFriends(@PathVariable("id") final Long id){
         User user = userRepository.findOne(id);
         user.getFriends().stream().forEach(user1 -> {
-            System.out.println("Id: " + user1.getId() + " name: " + user1.getName());
+            System.out.println("Id: " + user1.getEmail() + " name: " + user1.getName());
         });
     }
 
@@ -76,8 +76,7 @@ public class RestController {
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
-            User user1 = userRepository.findByEmail(location.getEmail());
-            User user = userRepository.findOne(user1.getId());
+            User user = userRepository.findByEmail(location.getEmail());
             user.setLatitude(location.getLatitude());
             user.setLongitude(location.getLongitude());
             userRepository.save(user);
