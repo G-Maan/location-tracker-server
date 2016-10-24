@@ -77,7 +77,7 @@ public class RestController {
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
             System.out.println("Location: ");
-            System.out.println(location);
+            System.out.println(location.getEmail() + " " + location.getLatitude() + location.getLongitude());
             User user = userRepository.findOne(location.getEmail());
             System.out.println("User: ");
             System.out.println(user);
