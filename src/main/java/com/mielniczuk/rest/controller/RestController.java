@@ -1,6 +1,7 @@
 package com.mielniczuk.rest.controller;
 
 import com.mielniczuk.model.User;
+import com.mielniczuk.model.UserLocation;
 import com.mielniczuk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,7 @@ public class RestController {
     }
 
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
+    public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
             User user1 = userRepository.findByEmail(location.getEmail());
             User user = userRepository.findOne(user1.getId());
