@@ -143,7 +143,7 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/find/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAllUsers(){
         List<User> users = (ArrayList) userRepository.findAll();
         if(users != null){
