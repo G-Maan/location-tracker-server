@@ -3,6 +3,7 @@ package com.mielniczuk.rest.controller;
 import com.mielniczuk.model.User;
 import com.mielniczuk.model.UserLocation;
 import com.mielniczuk.repository.UserRepository;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.xml.ws.http.HTTPException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -85,6 +88,16 @@ public class RestController {
             userRepository.save(user);
         return new ResponseEntity(HttpStatus.OK);
         }catch (HTTPException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/find/{email}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> findUsersByEmail(@RequestBody String email){
+        List<User> users = (ArrayList) userRepository.findByEmailLike(email);
+        if(users != null){
+            return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        }else{
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

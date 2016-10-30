@@ -1,7 +1,9 @@
 package com.mielniczuk.repository;
 
 import com.mielniczuk.model.User;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -12,4 +14,7 @@ public interface UserRepository extends CrudRepository<User, Long>{
 
     User findByName(String name);
     User findByEmail(String email);
+    @Query("SELECT * FROM Customer u WHERE u.email LIKE CONCAT('%',:username,'%')")
+    List<User> findUsersWithPartOfName(@Param("username") String username);
+    List<User> findByEmailLike(String email);
 }
