@@ -142,4 +142,14 @@ public class RestController {
             return new ResponseEntity("No available users" ,HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(value = "/find/all", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> findAllUsers(){
+        List<User> users = (ArrayList) userRepository.findAll();
+        if(users != null){
+            return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        }else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
