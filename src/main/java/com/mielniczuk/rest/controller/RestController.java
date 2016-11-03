@@ -71,7 +71,7 @@ public class RestController {
         });
     }
 
-    @RequestMapping(value = "/list/friends/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/friends/{email:.+}", method = RequestMethod.GET)
     public List<User> listUserFriends(@PathVariable("email") final String email){
         System.out.println("Passed email: " + email);
         User currentUser = userRepository.findByEmail(email);
