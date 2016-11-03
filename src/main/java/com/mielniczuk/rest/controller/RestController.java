@@ -107,7 +107,7 @@ public class RestController {
     @RequestMapping(value = "/find/{email:.+}", method = RequestMethod.GET)
     public ResponseEntity<List<User>> findUsersByEmail(@PathVariable String email){
         System.out.println("Passed email: " + email);
-        List<User> users = (ArrayList) userRepository.findByEmailLike(email);
+        List<User> users = (ArrayList) userRepository.findByEmailContainingIgnoreCase(email);
         if(users != null){
             User currentUser = userRepository.findByEmail(email);
             if(users.contains(currentUser)){
