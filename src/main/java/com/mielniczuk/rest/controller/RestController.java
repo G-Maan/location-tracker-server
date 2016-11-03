@@ -33,7 +33,7 @@ public class RestController {
         return user;
     }
 
-    @RequestMapping(value = "/save/{name}/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/save/{name}/{email:.+}", method = RequestMethod.GET)
     public String saveNewCustomer(@PathVariable("name") final String name, @PathVariable("email") final String email){
         User newCustomer = new User(name, email);
         User savedUser = userRepository.findByName(name);
@@ -45,7 +45,7 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/add/{email}/{email_friend}", method = RequestMethod.GET)
+    @RequestMapping(value = "/add/{email:.+}/{email_friend:.+}", method = RequestMethod.GET)
     public void saveNewFriend(@PathVariable("email") final String email, @PathVariable("email_friend") final String emailFriend){
         User currentUser = userRepository.findByEmail(email);
         User userToAdd = userRepository.findByEmail(emailFriend);
@@ -104,7 +104,7 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/find/{email}", method = RequestMethod.GET)
+    @RequestMapping(value = "/find/{email:.+}", method = RequestMethod.GET)
     public ResponseEntity<List<User>> findUsersByEmail(@RequestBody String email){
         List<User> users = (ArrayList) userRepository.findByEmailLike(email);
         if(users != null){

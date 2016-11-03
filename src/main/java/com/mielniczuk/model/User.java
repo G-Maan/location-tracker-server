@@ -31,6 +31,7 @@ public class User {
     @JsonIgnore
     private Set<User> friends = new HashSet<>();
     @ManyToMany(mappedBy="friends")
+    @JsonIgnore
     private Set<User> friendOf = new HashSet<>();
 
     protected User() {}
