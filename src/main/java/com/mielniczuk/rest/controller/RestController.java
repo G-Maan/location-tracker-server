@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.xml.ws.http.HTTPException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -72,11 +70,11 @@ public class RestController {
     }
 
     @RequestMapping(value = "/list/friends/{email:.+}", method = RequestMethod.GET)
-    public List<User> listUserFriends(@PathVariable("email") final String email){
+    public Set<User> listUserFriends(@PathVariable("email") final String email){
         System.out.println("Passed email: " + email);
         User currentUser = userRepository.findByEmail(email);
         System.out.println("Current user: " + currentUser.toString());
-        List<User> userFriends = (ArrayList)currentUser.getFriends();
+        Set<User> userFriends = (HashSet)currentUser.getFriends();
         return userFriends;
 
     }
