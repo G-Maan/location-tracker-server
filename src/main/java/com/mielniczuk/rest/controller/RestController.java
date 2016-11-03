@@ -73,7 +73,9 @@ public class RestController {
 
     @RequestMapping(value = "/list/friends/{email}", method = RequestMethod.GET)
     public List<User> listUserFriends(@PathVariable("email") final String email){
+        System.out.println("Passed email: " + email);
         User currentUser = userRepository.findByEmail(email);
+        System.out.println("Current user: " + currentUser.toString());
         List<User> userFriends = (ArrayList)currentUser.getFriends();
         return userFriends;
 
