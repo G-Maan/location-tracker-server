@@ -71,6 +71,14 @@ public class RestController {
         });
     }
 
+    @RequestMapping(value = "/list/friends/{email}", method = RequestMethod.GET)
+    public List<User> listUserFriends(@PathVariable("email") final String email){
+        User currentUser = userRepository.findByEmail(email);
+        List<User> userFriends = (ArrayList)currentUser.getFriends();
+        return userFriends;
+
+    }
+
     @RequestMapping(value = "/save/random/{id}", method = RequestMethod.GET)
     public void updateCustomerLocation(@PathVariable("id") final Long id){
         Random rand = new Random();
@@ -86,8 +94,6 @@ public class RestController {
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
             System.out.println("Location: ." + location.getEmail() + ". " + location.getLatitude() + " " + location.getLongitude());
-//            User user1 = userRepository.findByEmail(location.getEmail());
-//            System.out.println("User: " + user1.getEmail() + " " + user1.getName());
             User user = userRepository.findByEmail(location.getEmail());
             user.setLatitude(location.getLatitude());
             user.setLongitude(location.getLongitude());
