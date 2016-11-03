@@ -1,5 +1,8 @@
 package com.mielniczuk.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +28,7 @@ public class User {
     private double latitude;
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "USER_FRIENDS", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
+    @JsonIgnore
     private Set<User> friends = new HashSet<>();
     @ManyToMany(mappedBy="friends")
     private Set<User> friendOf = new HashSet<>();
