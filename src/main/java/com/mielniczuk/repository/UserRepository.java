@@ -14,7 +14,5 @@ public interface UserRepository extends CrudRepository<User, Long>{
 
     User findByName(String name);
     User findByEmail(String email);
-    @Query("SELECT * FROM Customer u WHERE u.email LIKE CONCAT('%',:username,'%')")
-    List<User> findUsersWithPartOfName(@Param("username") String username);
     List<User> findByEmailLike(String email);
 }

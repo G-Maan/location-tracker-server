@@ -47,14 +47,20 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/add/{id}/{id_friend}", method = RequestMethod.GET)
-    public void saveNewFriend(@PathVariable("id") final Long id, @PathVariable("id_friend") final Long idFriend){
-        User user = userRepository.findOne(id);
-        User userToBefriend = userRepository.findOne(idFriend);
-        user.getFriends().add(userToBefriend);
-        userToBefriend.getFriends().add(user);
-        userRepository.save(user);
-        userRepository.save(userToBefriend);
+    @RequestMapping(value = "/add/{email}/{email_friend}", method = RequestMethod.GET)
+    public void saveNewFriend(@PathVariable("email") final String email, @PathVariable("email_friend") final String emailFriend){
+        User currentUser = userRepository.findByEmail(email);
+        User userToAdd = userRepository.findByEmail(emailFriend);
+
+        if(!currentUser.getFriends().contains(userToAdd)){
+            currentUser.getFriends().add(userToAdd);
+            if(!userToAdd.getFriends().contains(currentUser)){
+                userToAdd.getFriends().add(currentUser);
+            }
+        }
+
+        userRepository.save(currentUser);
+        userRepository.save(userToAdd);
     }
 
     @RequestMapping(value = "/print/friends/{id}", method = RequestMethod.GET)
@@ -96,9 +102,13 @@ public class RestController {
     public ResponseEntity<List<User>> findUsersByEmail(@RequestBody String email){
         List<User> users = (ArrayList) userRepository.findByEmailLike(email);
         if(users != null){
+            User currentUser = userRepository.findByEmail(email);
+            if(users.contains(currentUser)){
+                users.remove(currentUser);
+            }
             return new ResponseEntity<List<User>>(users, HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("No available users" ,HttpStatus.BAD_REQUEST);
         }
     }
 }
