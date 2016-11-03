@@ -74,7 +74,7 @@ public class RestController {
         System.out.println("Passed email: " + email);
         User currentUser = userRepository.findByEmail(email);
         System.out.println("Current user: " + currentUser.toString());
-        Set<User> userFriends = (HashSet)currentUser.getFriends();
+        Set<User> userFriends = currentUser.getFriends();
         return userFriends;
 
     }
