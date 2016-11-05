@@ -115,7 +115,7 @@ public class RestController {
                 users.remove(currentUser);
             }
             Set<User> currentUserFriends = currentUser.getFriends();
-            users.stream().filter(user -> !currentUserFriends.contains(user)).collect(Collectors.toList());
+            users.stream().filter(user -> currentUserFriends.contains(user)).collect(Collectors.toList());
             return new ResponseEntity<List<User>>(users, HttpStatus.OK);
         }else{
             return new ResponseEntity("No available users" ,HttpStatus.BAD_REQUEST);
