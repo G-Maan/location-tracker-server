@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.xml.ws.http.HTTPException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -113,6 +114,8 @@ public class RestController {
             if(users.contains(currentUser)){
                 users.remove(currentUser);
             }
+            Set<User> currentUserFriends = currentUser.getFriends();
+            users.stream().filter(user -> !currentUserFriends.contains(user)).collect(Collectors.toList());
             return new ResponseEntity<List<User>>(users, HttpStatus.OK);
         }else{
             return new ResponseEntity("No available users" ,HttpStatus.BAD_REQUEST);
