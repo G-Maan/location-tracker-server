@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.xml.ws.http.HTTPException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -113,13 +114,20 @@ public class RestController {
 
     private Timestamp convertDate(String date){
         try {
-            System.out.println("Passed date to method: " + date);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
-            Date parsedDate = simpleDateFormat.parse(date);
-            System.out.println("Pre returned date: " + parsedDate);
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
-            System.out.println("Pre returned timestamp: " + timestamp);
-            return timestamp;
+            DateFormat formatter;
+            formatter = new SimpleDateFormat("MM/dd HH:mm");
+
+            Date date1 = formatter.parse(date);
+            java.sql.Timestamp timestamp1 = new Timestamp(date1.getTime());
+            System.out.println("------------------" + timestamp1);
+
+//            System.out.println("Passed date to method: " + date);
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
+//            Date parsedDate = simpleDateFormat.parse(date);
+//            System.out.println("Pre returned date: " + parsedDate);
+//            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+//            System.out.println("Pre returned timestamp: " + timestamp);
+            return timestamp1;
         }catch (ParseException e){
             return null;
         }
