@@ -114,20 +114,13 @@ public class RestController {
 
     private Timestamp convertDate(String date){
         try {
-            DateFormat formatter;
-            formatter = new SimpleDateFormat("MM/dd HH:mm");
-
-            Date date1 = formatter.parse(date);
-            java.sql.Timestamp timestamp1 = new Timestamp(date1.getTime());
-            System.out.println("------------------" + timestamp1);
-
-//            System.out.println("Passed date to method: " + date);
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
-//            Date parsedDate = simpleDateFormat.parse(date);
-//            System.out.println("Pre returned date: " + parsedDate);
-//            Timestamp timestamp = new Timestamp(parsedDate.getTime());
-//            System.out.println("Pre returned timestamp: " + timestamp);
-            return timestamp1;
+            System.out.println("Passed date to method: " + date);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
+            Date parsedDate = simpleDateFormat.parse(date);
+            System.out.println("Pre returned date: " + parsedDate);
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            System.out.println("Pre returned timestamp: " + timestamp);
+            return timestamp;
         }catch (ParseException e){
             return null;
         }
