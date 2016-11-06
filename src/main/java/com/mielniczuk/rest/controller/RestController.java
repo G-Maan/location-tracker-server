@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.xml.ws.http.HTTPException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -94,14 +97,28 @@ public class RestController {
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
-            System.out.println("Location: ." + location.getEmail() + ". " + location.getLatitude() + " " + location.getLongitude());
+            System.out.println("Location: ." + location.getEmail() + ". " + location.getLatitude() + " " + location.getLongitude() + " date: " + location.getDate());
             User user = userRepository.findByEmail(location.getEmail());
             user.setLatitude(location.getLatitude());
             user.setLongitude(location.getLongitude());
+            user.setDate(convertDate(location.getDate()));
+            System.out.println("Converted date: " + user.getDate());
+
             userRepository.save(user);
         return new ResponseEntity(HttpStatus.OK);
         }catch (HTTPException e){
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    private Timestamp convertDate(String date){
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-dd HH:mm");
+            Date parsedDate = simpleDateFormat.parse(date);
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            return timestamp;
+        }catch (ParseException e){
+            return null;
         }
     }
 
