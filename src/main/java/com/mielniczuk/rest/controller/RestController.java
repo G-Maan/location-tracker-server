@@ -115,7 +115,7 @@ public class RestController {
     private Timestamp convertDate(String date){
         try {
             System.out.println("Passed date to method: " + date);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
             Date parsedDate = simpleDateFormat.parse(date);
             System.out.println("Pre returned date: " + parsedDate);
             Timestamp timestamp = new Timestamp(parsedDate.getTime());
