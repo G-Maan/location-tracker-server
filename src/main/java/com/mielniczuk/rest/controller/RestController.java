@@ -118,6 +118,8 @@ public class RestController {
             userLocation.setLongitude(location.getLongitude());
             userLocation.setDate(convertDate(location.getDate()));
 
+            user.setLocation(userLocation);
+
             System.out.println("Converted date: " + userLocation.getDate());
             userRepository.save(user);
         return new ResponseEntity(HttpStatus.OK);

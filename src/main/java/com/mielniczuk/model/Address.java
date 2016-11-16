@@ -22,6 +22,9 @@ public class Address {
     @Column(name = "street_name")
     private String streetName;
 
+    public Address() {
+    }
+
     public Address(String country, String city, String streetName) {
         this.country = country;
         this.city = city;

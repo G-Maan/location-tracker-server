@@ -24,7 +24,7 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Location location;
+    private Location location = new Location();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "USER_FRIENDS", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})

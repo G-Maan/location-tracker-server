@@ -24,7 +24,10 @@ public class Location {
     private Timestamp date;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Address address;
+    private Address address = new Address();
+
+    public Location() {
+    }
 
     public Location(double latitude, double longitude) {
         this.latitude = latitude;
