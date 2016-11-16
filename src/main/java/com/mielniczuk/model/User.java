@@ -23,10 +23,8 @@ public class User {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column
-    private double longitude;
-    @Column
-    private double latitude;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Location location;
     @Column
     private Timestamp date;
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -43,11 +41,10 @@ public class User {
         this.name = name;
         this.email = email;
     }
-    public User(String name, String email, double latitude, double longitude){
+    public User(String name, String email, Location location){
         this.name = name;
         this.email = email;
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.location = location;
     }
 
     public Long getId() {
@@ -74,20 +71,12 @@ public class User {
         this.email = email;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Timestamp getDate() {

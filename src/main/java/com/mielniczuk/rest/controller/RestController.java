@@ -90,8 +90,8 @@ public class RestController {
         double latitude = rand.nextDouble();
         double longitude = rand.nextDouble();
         User customer = userRepository.findOne(id);
-        customer.setLatitude(latitude);
-        customer.setLongitude(longitude);
+//        customer.setLatitude(latitude);
+//        customer.setLongitude(longitude);
         userRepository.save(customer);
     }
 
@@ -100,8 +100,8 @@ public class RestController {
         try {
             System.out.println("Location: ." + location.getEmail() + ". " + location.getLatitude() + " " + location.getLongitude() + " date: " + location.getDate());
             User user = userRepository.findByEmail(location.getEmail());
-            user.setLatitude(location.getLatitude());
-            user.setLongitude(location.getLongitude());
+//            user.setLatitude(location.getLatitude());
+//            user.setLongitude(location.getLongitude());
             user.setDate(convertDate(location.getDate()));
             System.out.println("Converted date: " + user.getDate());
 
