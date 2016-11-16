@@ -19,7 +19,6 @@ public class Location {
     @Column
     private double longitude;
 
-    @Column
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
 
