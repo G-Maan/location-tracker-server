@@ -1,5 +1,7 @@
 package com.mielniczuk.rest.controller;
 
+import com.mielniczuk.model.Address;
+import com.mielniczuk.model.Location;
 import com.mielniczuk.model.User;
 import com.mielniczuk.model.UserLocation;
 import com.mielniczuk.repository.UserRepository;
@@ -102,9 +104,21 @@ public class RestController {
             User user = userRepository.findByEmail(location.getEmail());
 //            user.setLatitude(location.getLatitude());
 //            user.setLongitude(location.getLongitude());
-            user.setDate(convertDate(location.getDate()));
-            System.out.println("Converted date: " + user.getDate());
+//            user.setDate(convertDate(location.getDate()));
 
+            Location userLocation = user.getLocation();
+
+            Address userAddress = userLocation.getAddress();
+            userAddress.setCountry(location.getCountry());
+            userAddress.setCity(location.getCity());
+            userAddress.setStreetName(location.getStreet());
+            userLocation.setAddress(userAddress);
+
+            userLocation.setLatitude(location.getLatitude());
+            userLocation.setLongitude(location.getLongitude());
+            userLocation.setDate(convertDate(location.getDate()));
+
+            System.out.println("Converted date: " + userLocation.getDate());
             userRepository.save(user);
         return new ResponseEntity(HttpStatus.OK);
         }catch (HTTPException e){

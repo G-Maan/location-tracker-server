@@ -25,8 +25,7 @@ public class User {
     private String email;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Location location;
-    @Column
-    private Timestamp date;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "USER_FRIENDS", joinColumns = {@JoinColumn(name = "id")}, inverseJoinColumns = {@JoinColumn(name = "FRIEND_ID")})
     @JsonIgnore
@@ -77,14 +76,6 @@ public class User {
 
     public void setLocation(Location location) {
         this.location = location;
-    }
-
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
     }
 
     public Set<User> getFriends() {

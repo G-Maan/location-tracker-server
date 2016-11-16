@@ -1,6 +1,7 @@
 package com.mielniczuk.model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by Pawel Mielniczuk on 2016-11-16.
@@ -18,6 +19,9 @@ public class Location {
 
     @Column
     private double longitude;
+
+    @Column
+    private Timestamp date;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Address address;
@@ -55,6 +59,14 @@ public class Location {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
     }
 
     public Address getAddress() {
