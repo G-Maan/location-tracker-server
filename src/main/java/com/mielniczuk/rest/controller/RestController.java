@@ -113,11 +113,13 @@ public class RestController {
             userAddress.setCity(location.getCity());
             userAddress.setStreetName(location.getStreet());
             userLocation.setAddress(userAddress);
+            System.out.println(userAddress.toString());
 
             userLocation.setLatitude(location.getLatitude());
             userLocation.setLongitude(location.getLongitude());
             userLocation.setDate(convertDate(location.getDate()));
-
+            System.out.println(userLocation.toString());
+            
             user.setLocation(userLocation);
 
             System.out.println("Converted date: " + userLocation.getDate());

@@ -79,4 +79,14 @@ public class Location {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Location{" +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", date=" + date +
+                ", address=" + address +
+                '}';
+    }
 }
