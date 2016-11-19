@@ -1,6 +1,7 @@
 package com.mielniczuk.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "customer")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     @Id
