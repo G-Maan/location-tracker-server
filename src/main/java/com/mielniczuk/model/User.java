@@ -14,7 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "customer")
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     @Id
@@ -25,7 +24,7 @@ public class User {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location = new Location();
 
     @ManyToMany(cascade = CascadeType.PERSIST)

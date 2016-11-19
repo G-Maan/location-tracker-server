@@ -23,7 +23,7 @@ public class Location {
     @Column
     private Timestamp date;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address = new Address();
 
     public Location() {
