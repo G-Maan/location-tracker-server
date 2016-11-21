@@ -68,6 +68,21 @@ public class RestController {
         userRepository.save(userToAdd);
     }
 
+    @RequestMapping(value = "/remove/{email:.+}/{email_friend:.+}", method = RequestMethod.GET)
+    public void removeFriend(@PathVariable("email") final String email, @PathVariable("email_friend") final String emailFriend){
+        User currentUser = userRepository.findByEmail(email);
+        User userToRemove = userRepository.findByEmail(emailFriend);
+
+        if(currentUser.getFriends().contains(userToRemove)){
+            currentUser.getFriends().remove(userToRemove);
+            if(userToRemove.getFriends().contains(currentUser)){
+                userToRemove.getFriends().remove(currentUser);
+            }
+        }
+        userRepository.save(currentUser);
+        userRepository.save(userToRemove);
+    }
+
     @RequestMapping(value = "/print/friends/{id}", method = RequestMethod.GET)
     public void printFriends(@PathVariable("id") final Long id){
         User user = userRepository.findOne(id);
@@ -86,25 +101,11 @@ public class RestController {
 
     }
 
-    @RequestMapping(value = "/save/random/{id}", method = RequestMethod.GET)
-    public void updateCustomerLocation(@PathVariable("id") final Long id){
-        Random rand = new Random();
-        double latitude = rand.nextDouble();
-        double longitude = rand.nextDouble();
-        User customer = userRepository.findOne(id);
-//        customer.setLatitude(latitude);
-//        customer.setLongitude(longitude);
-        userRepository.save(customer);
-    }
-
     @RequestMapping(value = "/save/location", method = RequestMethod.POST)
     public ResponseEntity<UserLocation> updateLocationOfUser(@RequestBody UserLocation location){
         try {
             System.out.println("Location: ." + location.getEmail() + ". " + location.getLatitude() + " " + location.getLongitude() + " date: " + location.getDate());
             User user = userRepository.findByEmail(location.getEmail());
-//            user.setLatitude(location.getLatitude());
-//            user.setLongitude(location.getLongitude());
-//            user.setDate(convertDate(location.getDate()));
 
             Location userLocation = user.getLocation();
 
